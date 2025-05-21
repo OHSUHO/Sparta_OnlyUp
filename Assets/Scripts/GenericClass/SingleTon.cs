@@ -18,7 +18,7 @@ public abstract class SingleTon<T> : MonoBehaviour where T : MonoBehaviour
         set => _instance = value;
     }
 
-    private void Awake()
+    public virtual void Awake()
     {
         if (!_instance)
         {

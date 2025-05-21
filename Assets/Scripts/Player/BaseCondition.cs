@@ -16,15 +16,9 @@ public class BaseCondition : MonoBehaviour
     [SerializeField][Range(0f, 100f)]
     private float startValue;
     public float StartValue { get => startValue; set => startValue = value; }
-    [SerializeField]
-    private Image uiImage;
-    public Image UIImage { get => uiImage; set => uiImage = value; }
     
-
     private void Awake()
     {
-        uiImage = GetComponent<Image>();
-        uiImage.fillAmount = startValue / maxValue;
         currentValue = startValue;
     }
 
@@ -39,7 +33,6 @@ public class BaseCondition : MonoBehaviour
         {
             currentValue = maxValue;
         }
-        uiImage.fillAmount = currentValue / maxValue;
 
     }
     

@@ -10,7 +10,7 @@ public class PlayerCondition : MonoBehaviour
         get => health; 
         private set => health = value;
     }
-    public Action OnHealthChange;
+    public Action OnDamagedAction;
 
     private void Awake()
     {
@@ -31,7 +31,7 @@ public class PlayerCondition : MonoBehaviour
         {
             float value = -damage;
             health.ChangeValue(value);
-            OnHealthChange?.Invoke();
+            OnDamagedAction?.Invoke();
         }
     }
     

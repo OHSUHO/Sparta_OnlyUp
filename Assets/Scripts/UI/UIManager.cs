@@ -1,24 +1,19 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : SingleTon<UIManager>   
 {
-    private Player _player;
-    [SerializeField] private Image healthBar;
+    [SerializeField]private Player _player;
+    [SerializeField]private Image healthBar;
+    [SerializeField]private TextMeshProUGUI prompt;
 
-    private void Awake()
+    public override void Awake()
     {
+        base.Awake();
         _player = CharacterManager.Instance.Player;
-        //HealthBar 예외처리코드
-        if (!healthBar)
-        {
-            healthBar = GameObject.Find("Health")?.GetComponent<Image>();
-            if (!healthBar)
-            {
-                Debug.LogError("Health Image component not found!");
-            }
-        }
+        
+
     }
 
     private void Start()
@@ -26,7 +21,7 @@ public class UIManager : SingleTon<UIManager>
         //Player할당 예외처리코드
         if (_player && _player.PlayerCondition)
         {
-            _player.PlayerCondition.OnHealthChange += UpdateHealthBar;
+            _player.PlayerCondition.OnDamagedAction += UpdateHealthBar;
             // 초기 healthBar 값 설정
             UpdateHealthBar();
         }
@@ -42,8 +37,39 @@ public class UIManager : SingleTon<UIManager>
         {
             healthBar.fillAmount = _player.PlayerCondition.Health.CurrentValue / _player.PlayerCondition.Health.MaxValue;
         }
-        
-        
+        else
+        {
+            Debug.LogError("[UIManager]UpdateHealthBar NullReference!");
+            healthBar = GameObject.Find("Health").GetComponent<Image>();
+        }
+    }
+
+    public void SetPrompt(string commend)
+    {
+        if (!prompt)
+        {
+            Debug.LogError("[UIManager]SetPrompt NullReference!");
+            prompt = GameObject.Find("Prompt").GetComponent<TextMeshProUGUI>();
+        }
+        if (!prompt.gameObject.activeInHierarchy)
+        {
+            prompt.gameObject.SetActive(true);
+        }
+        prompt.SetText(commend);
+    }
+
+    public void ClearPrompt()
+    {   if (!prompt)
+        {
+            Debug.LogError("[UIManager]ClearPrompt NullReference!");
+        }
+        if (prompt.gameObject.activeInHierarchy)
+        {
+            prompt.SetText(string.Empty);
+            prompt.gameObject.SetActive(false);
+        }
         
     }
+    
+    
 }
