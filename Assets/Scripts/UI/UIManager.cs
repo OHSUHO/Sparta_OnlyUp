@@ -23,6 +23,7 @@ public class UIManager : SingleTon<UIManager>
 
     private void Start()
     {
+        healthBar = _player.PlayerCondition.Health.GetComponent<Image>();
         //Player할당 예외처리코드
         if (_player && _player.PlayerCondition)
         {
