@@ -39,7 +39,6 @@ public class PlayerInterAction : MonoBehaviour
         {
             _lastInteractTime = Time.time;
             FindInteractiveObject();
-            
         }
         
         
