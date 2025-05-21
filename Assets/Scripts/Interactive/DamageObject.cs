@@ -10,7 +10,6 @@ public class DamageObject : MonoBehaviour
         {
             PlayerCondition playerCondition = other.GetComponent<PlayerCondition>();
             playerCondition.TakeDamage(damage);
-            Debug.Log("Player Take Damage");
         }
     }
 }
