@@ -23,7 +23,6 @@ public class PlayerInterAction : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit,distanceInteract,interactableLayer))
         {
-           
             UIManager.Instance.SetPrompt(hit.transform.name);
         }
 
@@ -40,6 +39,7 @@ public class PlayerInterAction : MonoBehaviour
         {
             _lastInteractTime = Time.time;
             FindInteractiveObject();
+            
         }
         
         

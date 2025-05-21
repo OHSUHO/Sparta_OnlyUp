@@ -51,7 +51,6 @@ public class UIManager : SingleTon<UIManager>
             Debug.LogError("[UIManager]SetPrompt NullReference!");
             prompt = GameObject.Find("Prompt").GetComponent<TextMeshProUGUI>();
         }
-        Debug.Log("[UIManager]SetPrompt");
         if (!prompt.gameObject.activeInHierarchy)
         {
             prompt.gameObject.SetActive(true);
