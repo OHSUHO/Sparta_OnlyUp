@@ -8,7 +8,6 @@ public class PlayerCondition : MonoBehaviour
     public BaseCondition Health
     {
         get => health; 
-        private set => health = value;
     }
     public Action OnDamagedAction;
 

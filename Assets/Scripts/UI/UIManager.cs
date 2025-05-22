@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -7,13 +8,36 @@ public class UIManager : SingleTon<UIManager>
     [SerializeField]private Player _player;
     [SerializeField]private Image healthBar;
     [SerializeField]private TextMeshProUGUI prompt;
-
+    [SerializeField]private GameObject uiInventory;
+    public Inventory uiInventoryScript;
+    [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI itemDesc;
+    [SerializeField] private TextMeshProUGUI itemValue;
     public override void Awake()
     {
         base.Awake();
-        _player = CharacterManager.Instance.Player;
-        
+        InitInventory();
+        uiInventoryScript = uiInventory.GetComponent<Inventory>();
+    }
 
+    private void OnValidate()
+    {
+        Utility.TryAssign(ref _player, "Player");
+        Utility.TryAssign(ref healthBar, "HealthBar");
+        Utility.TryAssign(ref prompt, "Prompt");
+        Utility.TryAssign(ref uiInventory, "Inventory");
+        Utility.TryAssign(ref itemName, "ItemName");
+        Utility.TryAssign(ref itemDesc, "ItemDescription");
+        Utility.TryAssign(ref itemValue, "ItemValue");
+        
+    }
+
+    public void InitInventory()
+    {
+        uiInventory.SetActive(false);
+        itemName.SetText(string.Empty);
+        itemDesc.SetText(string.Empty);
+        itemValue.SetText(string.Empty);
     }
 
     private void Start()
@@ -28,6 +52,7 @@ public class UIManager : SingleTon<UIManager>
         else
         {
             Debug.LogError("Player or PlayerCondition is not properly initialized!");
+            _player = GameObject.Find("Player")?.GetComponent<Player>();
         }
     }
 
@@ -68,8 +93,13 @@ public class UIManager : SingleTon<UIManager>
             prompt.SetText(string.Empty);
             prompt.gameObject.SetActive(false);
         }
-        
     }
-    
+
+    public void ShowInventory()
+    {
+        uiInventory.SetActive(true);
+        Inventory inv = uiInventory.GetComponent<Inventory>();
+        inv.UpdateInventory();
+    }
     
 }
