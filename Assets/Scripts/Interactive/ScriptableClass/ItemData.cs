@@ -8,6 +8,11 @@ public class ItemData : ScriptableObject
    public ItemType type;
    public Sprite itemIcon;
    public GameObject equipPrefab;
+   public GameObject consumablePrefab;
+   public ItemStat statType;
+   public float itemValue;
+   public float time;
+
 }
 
 public  enum ItemType
@@ -15,13 +20,21 @@ public  enum ItemType
    Environment,
    Item,
    Consumable,
-   IEquipable,
+   Equipable,
+   
+}
+
+public enum ItemStat
+{
+   AttackStat,
+   DefenseStat,
+   HealthStat,
    
 }
 
 public interface IConsumable
 {
-   public void Heal(float value);
+   public void Consume();
    
 }
 

@@ -33,6 +33,12 @@ public class PlayerCondition : MonoBehaviour
             OnDamagedAction?.Invoke();
         }
     }
+
+    public void Heal(float heal, float time)
+    {
+        health.ChangeValueStartCoroutine(heal, time);
+        
+    }
     
     
     

@@ -36,7 +36,8 @@ public class PlayerInterAction : MonoBehaviour
 
         else
         {
-            lastInteractObject =null;
+            curInteractObject =null;
+            lastInteractObject = null;
             UIManager.Instance.ClearPrompt();
         }
         
@@ -46,12 +47,13 @@ public class PlayerInterAction : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-         if (curInteractObject.GetItemType() != ItemType.Environment)
+         if (curInteractObject!=null && curInteractObject.GetItemType() != ItemType.Environment)
          {
              Inventory inv = UIManager.Instance.uiInventoryScript;
              inv.GetItem(curInteractObject.GetComponent<InteractableObject>().data);
              inv.UpdateInventory();
              Destroy(curInteractObject.gameObject);
+             curInteractObject = null;
          }
             
         }
