@@ -8,9 +8,8 @@ public class PlayerCondition : MonoBehaviour
     public BaseCondition Health
     {
         get => health; 
-        private set => health = value;
     }
-    public Action OnHealthChange;
+    public Action OnDamagedAction;
 
     private void Awake()
     {
@@ -31,8 +30,14 @@ public class PlayerCondition : MonoBehaviour
         {
             float value = -damage;
             health.ChangeValue(value);
-            OnHealthChange?.Invoke();
+            OnDamagedAction?.Invoke();
         }
+    }
+
+    public void Heal(float heal, float time)
+    {
+        health.ChangeValueStartCoroutine(heal, time);
+        
     }
     
     

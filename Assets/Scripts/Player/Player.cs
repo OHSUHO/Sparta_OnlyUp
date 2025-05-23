@@ -3,6 +3,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {   
     private PlayerController _playerController;
+
+    public PlayerController PlayerController
+    {
+        get=>_playerController;
+    }
+    
     private PlayerCondition _playerCondition;
     public PlayerCondition PlayerCondition
     {
@@ -11,7 +17,6 @@ public class Player : MonoBehaviour
     }
     private void Awake()
     {
-        
         CharacterManager.Instance.Player = this;
         _playerController = GetComponent<PlayerController>();
         _playerCondition = GetComponent<PlayerCondition>();
