@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -16,7 +18,8 @@ public class BaseCondition : MonoBehaviour
     [SerializeField][Range(0f, 100f)]
     private float startValue;
     public float StartValue { get => startValue; set => startValue = value; }
-    
+
+    public Action OnChangeValue;
     private void Awake()
     {
         currentValue = startValue;
@@ -33,8 +36,31 @@ public class BaseCondition : MonoBehaviour
         {
             currentValue = maxValue;
         }
+        OnChangeValue?.Invoke();
 
     }
+
+    IEnumerator ChangeValueAboutTime(float value, float time)
+    {
+        float times = 100;
+        float tick = time / times;
+        float tickValue = value / times;
+        float totalTime = 0f;
+        while (time > totalTime)
+        {
+            yield return new WaitForSeconds(tick);
+            totalTime += tick;
+            ChangeValue(tickValue);
+        }
+            yield return null;
+    }
+
+    public void ChangeValueStartCoroutine(float value, float time)
+    {
+        StartCoroutine(ChangeValueAboutTime(value, time));
+    }
+    
+    
     
     
     

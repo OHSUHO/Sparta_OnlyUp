@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HighJumpObject : MonoBehaviour
+public class HighJumpObject : InteractableObject
 {
     [SerializeField] [Range(0, 100)] private float highJumpForce = 30f;
     private void OnCollisionEnter(Collision other)

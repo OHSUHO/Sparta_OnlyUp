@@ -14,7 +14,8 @@ public class PlayerController : MonoBehaviour
     private float _cursorYposition;
     private float _minY = -80f;
     private float _maxY = 80f;
-    
+    private bool _canLook = true;
+
     private Rigidbody _rigidbody;
     private Vector2 _curMovementInput;
     
@@ -37,7 +38,10 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         Move(_curMovementInput);
-        OnLook();
+        if (_canLook)
+        {
+          OnLook();
+        }
     }
 
     private void Move(Vector2 input)
@@ -53,6 +57,12 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
     }
 
+    public void ToggleCanLook(bool isBool)
+    {
+        _canLook = !isBool;
+        Cursor.lockState = !isBool ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+
     public void OnMoveInput(InputAction.CallbackContext context)
     {
         if (context.phase == InputActionPhase.Performed)
@@ -65,6 +75,8 @@ public class PlayerController : MonoBehaviour
         }
         
     }
+
+
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
@@ -87,6 +99,7 @@ public class PlayerController : MonoBehaviour
         cameraTransform.localEulerAngles = new Vector2(_cursorYposition, 0);
         transform.eulerAngles = new Vector2(0, _cursorXposition);
     }
+
 
     private bool CheckGround()
     {

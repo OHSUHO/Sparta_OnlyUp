@@ -8,7 +8,6 @@ public class PlayerCondition : MonoBehaviour
     public BaseCondition Health
     {
         get => health; 
-        private set => health = value;
     }
     public Action OnDamagedAction;
 
@@ -33,6 +32,12 @@ public class PlayerCondition : MonoBehaviour
             health.ChangeValue(value);
             OnDamagedAction?.Invoke();
         }
+    }
+
+    public void Heal(float heal, float time)
+    {
+        health.ChangeValueStartCoroutine(heal, time);
+        
     }
     
     

@@ -3,6 +3,12 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {   
     private PlayerController _playerController;
+
+    public PlayerController PlayerController
+    {
+        get=>_playerController;
+    }
+    
     private PlayerCondition _playerCondition;
     public PlayerCondition PlayerCondition
     {
